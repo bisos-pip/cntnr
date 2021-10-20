@@ -1,2 +1,1 @@
-# cntnr
-BISOS Container (cntnr) -- By* Platform As A Container
+PALS: Possession Assertable Libre Services
