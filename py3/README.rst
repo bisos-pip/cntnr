@@ -1,6 +1,6 @@
-======================
-bisos.bx-bases Scripts
-======================
+===========
+bisos.cntnr
+===========
 
 .. contents::
    :depth: 3
@@ -9,8 +9,8 @@ bisos.bx-bases Scripts
 Overview
 ========
 
-bpo: python library and scripts (Interactive Command Modules – ICM) are
-used to manage abstrations of ByStar Portable Objects.
+CNTNR: (Container) – python library and scripts (Interactive Command
+Modules – ICM) are used to abstract a BISOS Container.
 
 Support
 =======
@@ -33,11 +33,11 @@ Installation
 
 ::
 
-   sudo pip install bisos.bpo
+   sudo pip install bisos.cntnr
 
 Usage
 =====
 
 ::
 
-   bin/bpoManage.py
+   cntnrManage.py

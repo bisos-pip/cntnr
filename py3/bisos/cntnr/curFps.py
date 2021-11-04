@@ -113,6 +113,8 @@ from bisos.basics import pattern
 # from bisos.pals import palsRepo
 from bisos.pals import repoLiveParams
 # from bisos.icm import fpath
+from bisos.basics import facter
+
 
 ####+BEGIN: bx:dblock:python:section :title "Class Definitions"
 """
@@ -246,39 +248,47 @@ class curCntnr_platformCapture(icm.Cmnd):
             return cmndOutcome
 
 ####+END:
-        from bisos.basics import facter
+        fact = facter.getAllAsNamedTuple()
+        primaryIf = facter.get("networking.primary")
+        primaryIfAddr = facter.get(
+            f"networking.interfaces.{primaryIf}.bindings[0].address"
+        )
 
-        y = facter.getAllNamedTuple()
+        containerBpoId = cntnrBpoId_getFromHostname(fact.networking.hostname)
 
-        print(y.networking.primary)
+        # Based on containerBpoId we can now get conveyed (guest BPO, etc.)
+        # NOTYET
 
-        print(y.networking.interfaces)
+        # run cntnrCurParams.py to see names and values
+        fpBaseInst = pattern.sameInstance(
+            repoLiveParams.PalsRepo_LiveParams_FPs,
+            baseDirObtain(),
+        )
 
-        primary = getattr(y.networking, "primary")
-        print(f"3333 {primary}")
-
-        ifs = eval("y.networking.interfaces")
-        print(f"4444 {ifs}")
-
-        ifs = eval("y.networking.interfaces.eth0.bindings[0].address")
-        print(f"5555 {ifs}")
-
-        ifs = facter.get("networking.interfaces.eth0.bindings[0].address")
-        print(f"6666 {ifs}")
-
-        print(facter.get("system_uptime.secondsBAD"))
-        print(facter.getOrDefault("system_uptime.secondsBAD"))
-        print(facter.get("system_uptime.seconds"))
-        print(facter.get("system_uptime.seconds", cache=False))
-
-        #facter.asJson()
-
-        # fpBaseInst.fps_setParam('plone3User', userNameCapture)
-        # fpBaseInst.fps_setParam('plone3Passwd', passwordCapture)
-
+        fpBaseInst.fps_setParam('palsPlatformBpoId', containerBpoId)
+        fpBaseInst.fps_setParam('palsPlatformIpAddr', primaryIfAddr)
 
         return cmndOutcome
 
+
+####+BEGIN: bx:icm:py3:func :funcName "cntnrBpoId_getFromHostname" :funcType "" :retType "" :deco "" :argsList "" :comment "Instantiate specified class just once based on args."
+"""
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Func-      :: /cntnrBpoId_getFromHostname/ =Instantiate specified class just once based on args.=  [[elisp:(org-cycle)][| ]]
+"""
+def cntnrBpoId_getFromHostname(
+####+END:
+        hostname,
+):
+    """
+** Based on hostname, get cntnrBpoId
+    """
+    result = None
+    fact = facter.getAllAsNamedTuple()
+    if fact.is_virtual:
+        if "VAG-deb11" in hostname:
+            result = "pmp_VAG-deb11"
+
+    return result
 
 
 
