@@ -19,7 +19,7 @@ def longDescription():
 
 
 # __version__ = get_version('unisos/icm/__init__.py')
-__version__ = '0.3'
+__version__ = '0.5'
 
 
 requires = [
@@ -31,7 +31,8 @@ requires = [
 # print('Requirements: %s' % ','.join(requires))
 
 scripts = [
-    "bin/cntnrCharBox.cs",
+    "bin/cntnrCharThis.cs",
+    "bin/cntnrCharActivate.cs",    
 ]
 
 

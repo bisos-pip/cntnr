@@ -176,15 +176,15 @@ def examples_csu(
     #ro_unitBasePars = cs.examples.perfNameParsInsert(unitBasePars, perfName)
     #ro_createPars = cs.examples.perfNameParsInsert(createPars, perfName)
 
-    cmnd('charBox_locateBoxInAllCntnrs')
-    cmnd('charBox_name')
-    cmnd('charBox_bpoId')
+    cmnd('cntnrThis_locateBoxInAllCntnrs')
+    cmnd('cntnrThis_regName')
+    cmnd('cntnrThis_regBpoId')
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "charBox_locateBoxInAllCntnrs" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "cntnrThis_locateBoxInAllCntnrs" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<charBox_locateBoxInAllCntnrs>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<cntnrThis_locateBoxInAllCntnrs>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class charBox_locateBoxInAllCntnrs(cs.Cmnd):
+class cntnrThis_locateBoxInAllCntnrs(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -221,11 +221,11 @@ class charBox_locateBoxInAllCntnrs(cs.Cmnd):
 
         return cmndOutcome.set(opResults=f"{containers}",)
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "charBox_name" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "cntnrThis_regName" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<charBox_name>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<cntnrThis_regName>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class charBox_name(cs.Cmnd):
+class cntnrThis_regName(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -260,17 +260,23 @@ class charBox_name(cs.Cmnd):
 
         if (containers := invSiteRegContainer.thisSys_locateBoxInAll().pyWCmnd(cmndOutcome,)
             .results) == None: return failed(cmndOutcome)
-
-        cntnrName = cntnrCharName.ContainerCharName(ccnDict=containers[0])
-        name = cntnrName.initialsName()
+        
+        if len(containers) == 1:
+            cntnrName = cntnrCharName.ContainerCharName(ccnDict=containers[0])
+            name = cntnrName.initialsName()
+        elif len(containers) == 0:
+            name = ""
+        else:
+            # b_io.eh_problem("More than onecontainer")
+            name = "MultipleContainersMatchedForName"
 
         return cmndOutcome.set(opResults=name,)
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "charBox_bpoId" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "cntnrThis_regBpoId" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<charBox_bpoId>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<cntnrThis_regBpoId>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class charBox_bpoId(cs.Cmnd):
+class cntnrThis_regBpoId(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -305,8 +311,14 @@ class charBox_bpoId(cs.Cmnd):
         if (containers := invSiteRegContainer.thisSys_locateBoxInAll().pyWCmnd(cmndOutcome,)
             .results) == None: return failed(cmndOutcome)
 
-        cntnrName = cntnrCharName.ContainerCharName(ccnDict=containers[0])
-        bpoId = cntnrName.bpoId()
+        if len(containers) == 1:
+            cntnrName = cntnrCharName.ContainerCharName(ccnDict=containers[0])
+            bpoId = cntnrName.bpoId()
+        elif len(containers) == 0:
+            bpoId = ""
+        else:
+            # b_io.eh_problem("More than onecontainer")
+            bpoId = "MultipleContainersMatchedForBpoId"
 
         return cmndOutcome.set(opResults=bpoId,)
 

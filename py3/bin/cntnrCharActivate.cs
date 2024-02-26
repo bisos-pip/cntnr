@@ -99,28 +99,24 @@ import collections
    "blee.csPlayer.bleep"
    "bisos.b.fpCls"
    "bisos.b.clsMethod_csu"
-   "bisos.cntnr.cntnrCharName"
-   "bisos.cntnr.cntnrCharBox"
 ))
 #+END_SRC
 #+RESULTS:
-| bisos.b.cs.ro | blee.csPlayer.bleep | bisos.b.fpCls | bisos.b.clsMethod_csu | bisos.cntnr.cntnrCharName | bisos.cntnr.cntnrCharBox |
+| bisos.b.cs.ro | blee.csPlayer.bleep | bisos.b.fpCls | bisos.b.clsMethod_csu |
 #+end_org """
 
 ####+BEGIN: b:py3:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Process CSU List= with /6/ in csuList pyImports=t csuImports=t csuParams=t
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Process CSU List= with /4/ in csuList pyImports=t csuImports=t csuParams=t
 #+end_org """
 
 from bisos.b.cs import ro
 from blee.csPlayer import bleep
 from bisos.b import fpCls
 from bisos.b import clsMethod_csu
-from bisos.cntnr import cntnrCharName
-from bisos.cntnr import cntnrCharBox
 
 
-csuList = [ 'bisos.b.cs.ro', 'blee.csPlayer.bleep', 'bisos.b.fpCls', 'bisos.b.clsMethod_csu', 'bisos.cntnr.cntnrCharName', 'bisos.cntnr.cntnrCharBox', ]
+csuList = [ 'bisos.b.cs.ro', 'blee.csPlayer.bleep', 'bisos.b.fpCls', 'bisos.b.clsMethod_csu', ]
 
 g_importedCmndsModules = cs.csuList_importedModules(csuList)
 
@@ -176,11 +172,8 @@ class examples(cs.Cmnd):
 
         bleep.examples_icmBasic()
 
-        #cs.examples.menuChapter('=Misc=  *Facilities*')
-
-        cntnrCharName.examples_csu(sectionTitle="default")
-
-        cntnrCharBox.examples_csu(sectionTitle="default")
+        print("*********  PLACEHOLDER  ***************")
+        print("This is a placeholder for python replacement of sysCharActivate.sh")        
 
         # b.ignore(ro.__doc__, fpCls.__doc__, clsMethod_csu.__doc__)  # We are not using these modules, but they are auto imported.
 
