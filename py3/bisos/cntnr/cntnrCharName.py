@@ -275,12 +275,12 @@ class ContainerCharName(object):
         self.ccnDict = {'model': self.model, 'abode': self.abode, 'purpose': self.purpose, 'containerNu': self.containerNu}
         return self.ccnDict
 
-####+BEGIN: b:py3:cs:method/typing :methodName "pathToContainerCharType" :deco "default"
+####+BEGIN: b:py3:cs:method/typing :methodName "setContainerCharName_withPath" :deco "default"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /pathToContainerCharType/  deco=default  [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /setContainerCharName_withPath/  deco=default  [[elisp:(org-cycle)][| ]]
     #+end_org """
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-    def pathToContainerCharType(
+    def setContainerCharName_withPath(
 ####+END:
             self,
             ccnPath:  pathlib.Path,
@@ -292,8 +292,37 @@ class ContainerCharName(object):
         self.purpose =  pathTuple[-2]
         self.containerNu =  pathTuple[-1]
 
-        return self.ccnDictSet()
+        self.ccnDictSet()
+        return self
 
+####+BEGIN: b:py3:cs:method/typing :methodName "setContainerCharName_withInitialsName" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /setContainerCharName_withInitialsName/  deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def setContainerCharName_withInitialsName(
+####+END:
+            self,
+            initialsName:  str,
+    ):
+        """ ."""
+
+        modelInitial = initialsName[0]
+        abodeInitial = initialsName[1]
+        purposeInitial = initialsName[2]
+
+        self.model = cntnrCharName.Models(modelInitial).name
+        self.abode = cntnrCharName.Abodes(abodeInitial).name
+        self.purpose = cntnrCharName.Purposes(purposeInitial).name
+
+        #print(getattr(invSiteRegContainer.Models, f'{self.model}').value)
+        
+        splited = initialsName.split('-')
+        self.containerNu = splited[1]
+
+        return self
+    
+    
 ####+BEGIN: b:py3:cs:method/typing :methodName "initialsName" :deco "default"
     """ #+begin_org
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /initialsName/  deco=default  [[elisp:(org-cycle)][| ]]
