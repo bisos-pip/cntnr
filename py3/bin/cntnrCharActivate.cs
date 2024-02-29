@@ -172,8 +172,8 @@ class examples(cs.Cmnd):
 
         bleep.examples_icmBasic()
 
-        print("*********  PLACEHOLDER  ***************")
-        print("This is a placeholder for python replacement of sysCharActivate.sh")        
+        cs.examples.menuChapter('*PLACEHOLDER*')
+        print("This is a placeholder for python replacement of sysCharActivate.sh")
 
         # b.ignore(ro.__doc__, fpCls.__doc__, clsMethod_csu.__doc__)  # We are not using these modules, but they are auto imported.
 

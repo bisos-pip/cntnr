@@ -38,6 +38,7 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
+
 csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['csSiteRegContainer'], }
 csInfo['version'] = '202401192758'
 csInfo['status']  = 'inUse'
@@ -311,14 +312,16 @@ class ContainerCharName(object):
         abodeInitial = initialsName[1]
         purposeInitial = initialsName[2]
 
-        self.model = cntnrCharName.Models(modelInitial).name
-        self.abode = cntnrCharName.Abodes(abodeInitial).name
-        self.purpose = cntnrCharName.Purposes(purposeInitial).name
+        self.model = Models(modelInitial).name
+        self.abode = Abodes(abodeInitial).name
+        self.purpose = Purposes(purposeInitial).name
 
         #print(getattr(invSiteRegContainer.Models, f'{self.model}').value)
         
         splited = initialsName.split('-')
         self.containerNu = splited[1]
+
+        self.ccnDictSet()
 
         return self
     
@@ -396,17 +399,19 @@ def examples_csu(
     #ro_unitBasePars = cs.examples.perfNameParsInsert(unitBasePars, perfName)
     #ro_createPars = cs.examples.perfNameParsInsert(createPars, perfName)
 
-    cmnd('placeHolderExamples', pars=thisSysPars)
+    cs.examples.menuChapter('*Performer Only Commands*')
+
+    cmnd('withInitialsName_getDict', args="PML-1006")
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "placeHolderExample" :comment "" :extent "verify" :ro "" :parsMand "" :parsOpt "" :argsMin 2 :argsMax 2 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "withInitialsName_getDict" :comment "" :extent "verify" :ro "" :parsMand "" :parsOpt "" :argsMin 1 :argsMax 1 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<placeHolderExample>>  =verify= argsMin=2 argsMax=2   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<withInitialsName_getDict>>  =verify= argsMin=1 argsMax=1   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class placeHolderExample(cs.Cmnd):
+class withInitialsName_getDict(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
-    cmndArgsLen = {'Min': 2, 'Max': 2,}
+    cmndArgsLen = {'Min': 1, 'Max': 1,}
 
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
@@ -437,26 +442,10 @@ class placeHolderExample(cs.Cmnd):
 
         cmndArgsSpecDict = self.cmndArgsSpec()
         parName = self.cmndArgsGet("0", cmndArgsSpecDict, argsList)
-        parValue = self.cmndArgsGet("1", cmndArgsSpecDict, argsList)
 
-        if (siteContainersBase := config_siteContainersBaseObtain().cmnd(
-                rtInv=cs.RtInvoker.new_py(), cmndOutcome=cmndOutcome,
-        ).results) == None : return(b_io.eh.badOutcome(cmndOutcome))
+        containerCharName = ContainerCharName().setContainerCharName_withInitialsName(parName)
 
-        allFiles = siteContainersBase.glob(f"**/{parName}")
-
-        foundCcNames = []
-
-        for eachFile in allFiles:
-            fpsBase = eachFile.parent
-            regFps = containerRegfps.Container_RegFPs(fpBase=fpsBase)
-            storedFp = regFps.fps_getParam(parName)
-            storedValue = storedFp.parValueGet()
-            if storedValue == parValue:
-                ccnDict = invSiteRegContainer.ContainerCharName().pathToContainerCharType(fpsBase)
-                foundCcNames.append(ccnDict)
-
-        return cmndOutcome.set(opResults=foundCcNames,)
+        return cmndOutcome.set(opResults=containerCharName.ccnDict,)
 
 ####+BEGIN: b:py3:cs:method/args :methodName "cmndArgsSpec" :methodType "anyOrNone" :retType "bool" :deco "default" :argsList "self"
     """ #+begin_org
@@ -474,12 +463,6 @@ class placeHolderExample(cs.Cmnd):
             argName="parName",
             argChoices=[],
             argDescription="Name of File Parameter to search for."
-        )
-        cmndArgsSpecDict.argsDictAdd(
-            argPosition="1",
-            argName="parValue",
-            argChoices=[],
-            argDescription="Value of File Parameter to search for."
         )
         return cmndArgsSpecDict
 
