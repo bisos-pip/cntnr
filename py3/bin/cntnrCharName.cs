@@ -96,14 +96,14 @@ import collections
 (setq  b:py:cs:csuList
   (list
    "bisos.b.cs.ro"
-   "blee.csPlayer.bleep"
+   "bisos.csPlayer.bleep"
    "bisos.b.fpCls"
    "bisos.b.clsMethod_csu"
    "bisos.cntnr.cntnrCharName"
 ))
 #+END_SRC
 #+RESULTS:
-| bisos.b.cs.ro | blee.csPlayer.bleep | bisos.b.fpCls | bisos.b.clsMethod_csu | bisos.cntnr.cntnrCharName |
+| bisos.b.cs.ro | bisos.csPlayer.bleep | bisos.b.fpCls | bisos.b.clsMethod_csu | bisos.cntnr.cntnrCharName |
 #+end_org """
 
 ####+BEGIN: b:py3:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t
@@ -112,13 +112,13 @@ import collections
 #+end_org """
 
 from bisos.b.cs import ro
-from blee.csPlayer import bleep
+from bisos.csPlayer import bleep
 from bisos.b import fpCls
 from bisos.b import clsMethod_csu
 from bisos.cntnr import cntnrCharName
 
 
-csuList = [ 'bisos.b.cs.ro', 'blee.csPlayer.bleep', 'bisos.b.fpCls', 'bisos.b.clsMethod_csu', 'bisos.cntnr.cntnrCharName', ]
+csuList = [ 'bisos.b.cs.ro', 'bisos.csPlayer.bleep', 'bisos.b.fpCls', 'bisos.b.clsMethod_csu', 'bisos.cntnr.cntnrCharName', ]
 
 g_importedCmndsModules = cs.csuList_importedModules(csuList)
 
@@ -172,7 +172,7 @@ class examples(cs.Cmnd):
 
         cs.examples.commonBrief()
 
-        bleep.examples_icmBasic()
+        bleep.examples_csBasic()
 
         #cs.examples.menuChapter('=Misc=  *Facilities*')
 
