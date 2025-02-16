@@ -1,3 +1,0 @@
-bisos.cntnr==0.61
-blee==0.3
-bisos.csPlayer==0.1
